@@ -69,9 +69,9 @@ public class MainGame extends Game {
 		setScreen(new WelcomeScreen(this));
 	}
 
-	public void goToResultsScreen(int previousLevel)
+	public void goToResultsScreen(int previousLevel, boolean won)
 	{
-		setScreen(new ResultsScreen(this,previousLevel));
+		setScreen(new ResultsScreen(this,previousLevel,won));
 	}
 
 	public void goToDifficultyScreen()

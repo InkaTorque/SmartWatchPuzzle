@@ -1,5 +1,6 @@
 package com.leapgs.princess.Models;
 
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 
 /**
@@ -8,47 +9,68 @@ import com.badlogic.gdx.utils.Array;
 
 public class LevelData {
 
-    public int minFireLevel,maxFireLevel, rows, colums;
-    public float minAppearFrecuency,maxAppearFrecuency,health, marginXLeft, marginXRight,marginYUp,marginYDown;
-    public Array<Sector> sectors;
+    public Array<PuzzlePieceData> pieces;
+    public int rows,colums,level;
+    public float marginLeft, marginRight, marginUp, marginDown,time;
+    public Rectangle playArea;
 
-    public LevelData(float health, int minFireLevel, int maxFireLevel, float minAppearFrecuency, float maxAppearFrecuency, int rows, int colums , float marginXL, float marginXR, float marginYU, float marginYD) {
-        this.minFireLevel = minFireLevel;
-        this.maxFireLevel = maxFireLevel;
-        this.minAppearFrecuency = minAppearFrecuency;
-        this.maxAppearFrecuency = maxAppearFrecuency;
-        this.health = health;
-        this.rows = rows;
-        this.colums = colums;
-        this.marginXLeft = marginXL;
-        this.marginXRight = marginXR;
-        this.marginYUp = marginYU;
-        this.marginYDown = marginYD;
+    public static String levelTilesFolderPrefix = "sprites/levelTiles/";
 
-        createSectorList();
+    public LevelData(int level,float time, int rows, int colums , float marginL, float marginR, float marginU, float marginD ) {
+
+        this.time = time;
+        this.rows=rows;
+        this.colums=colums;
+        this.marginLeft = marginL;
+        this.marginRight = marginR;
+        this.marginUp = marginU;
+        this.marginDown = marginD;
+        this.level = level;
+
+        assignSectorsToTiles();
     }
 
-    private void createSectorList() {
+    private void assignSectorsToTiles() {
 
-        sectors = new Array<Sector>();
+        Array<Rectangle> sectors = createSectorList();
+        pieces = new Array<PuzzlePieceData>();
+
+        for(int i=0;i<rows*colums;i++)
+        {
+            pieces.add(new PuzzlePieceData(sectors.get(i),levelTilesFolderPrefix+"level"+level+"Sprites/piece"+(i+1)+".png"));
+        }
+        sectors.clear();
+    }
+
+    private Array<Rectangle> createSectorList() {
+
+        playArea = new Rectangle();
+
+        Array<Rectangle> sectors = new Array<Rectangle>();
         float xArea,yArea,xOrigin,yOrigin,xStep,yStep;
 
-        xArea = 400 - marginXLeft - marginXRight;
-        yArea = 400 - marginYUp - marginYDown;
+        xArea = 400 - marginLeft - marginRight;
+        yArea = 400 - marginUp - marginDown;
 
-        xStep = xArea/rows;
-        yStep = yArea/colums;
+        xStep = xArea/colums;
+        yStep = yArea/rows;
 
-        xOrigin = marginXLeft;
-        yOrigin = 400 - marginYUp;
+        xOrigin = marginLeft;
+        yOrigin = 400 - marginUp;
+
+        playArea.width = xArea;
+        playArea.height = yArea;
+        playArea.x = marginLeft+ xArea/2;
+        playArea.y = marginDown + yArea/2;
 
         for(int i=0;i<rows;i++)
         {
             for(int j=0;j<colums;j++)
             {
-                sectors.add(new Sector(xStep,yStep,xOrigin+xStep*j,yOrigin-yStep*i));
+                sectors.add(new Rectangle(xOrigin + (xStep*j),yOrigin - (yStep*i),xStep,yStep));
             }
         }
+        return sectors;
 
     }
 

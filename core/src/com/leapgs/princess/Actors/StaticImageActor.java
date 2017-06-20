@@ -17,7 +17,7 @@ public class StaticImageActor extends Actor {
     public StaticImageActor(MainGame game,String name, float X , float Y, float width,float height)
     {
         this.game = game;
-        texture = new Texture("textImages/"+name);
+        texture = new Texture(name);
         //coordinates relative to the center of the image
         setSize(width,height);
         setPosition(X-getWidth()/2,Y - getHeight()/2);

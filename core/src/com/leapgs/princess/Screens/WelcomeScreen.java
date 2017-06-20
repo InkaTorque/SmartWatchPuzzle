@@ -12,7 +12,7 @@ import com.leapgs.princess.MainGame;
 
 public class WelcomeScreen extends BaseScreen {
 
-    String gameLogo="gameLogo.png";
+    String gameLogo="textImages/gameLogo.png";
 
     StaticImageActor logoActor,tapMessageActor;
 
@@ -30,7 +30,7 @@ public class WelcomeScreen extends BaseScreen {
     public void show() {
         super.show();
         logoActor = new StaticImageActor(game,gameLogo,200,250,300,100);
-        tapMessageActor = new StaticImageActor(game,"tapTex.png",200,150,300,100);
+        tapMessageActor = new StaticImageActor(game,"textImages/tapTex.png",200,150,300,100);
         stage.addActor(logoActor);
         stage.addActor(tapMessageActor);
 

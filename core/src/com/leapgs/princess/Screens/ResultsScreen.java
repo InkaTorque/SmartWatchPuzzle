@@ -23,9 +23,12 @@ public class ResultsScreen extends BaseScreen {
     TextButton goToMainMenuBtn,goToNextLevelButton;
     Label resultMessage,hiScoreMessage,currentScoreMessage;
 
-    public ResultsScreen(MainGame game, int lastLevel)
+    private boolean won;
+
+    public ResultsScreen(MainGame game, int lastLevel , boolean won)
     {
         super(game);
+        this.won =won;
         this.lastLevel=lastLevel;
     }
 
