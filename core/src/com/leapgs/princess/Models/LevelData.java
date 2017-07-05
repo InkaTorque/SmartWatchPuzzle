@@ -9,12 +9,12 @@ import com.badlogic.gdx.utils.Array;
 
 public class LevelData {
 
-    public Array<PuzzlePieceData> pieces;
-    public int rows,colums,level;
-    public float marginLeft, marginRight, marginUp, marginDown,time;
-    public Rectangle playArea;
+    private Array<PuzzlePieceData> pieces;
+    private int rows,colums,level;
+    private float marginLeft, marginRight, marginUp, marginDown,time;
+    private Rectangle playArea;
 
-    public static String levelTilesFolderPrefix = "sprites/levelTiles/";
+    private static String levelTilesFolderPrefix = "sprites/levelTiles/";
 
     public LevelData(int level,float time, int rows, int colums , float marginL, float marginR, float marginU, float marginD ) {
 
@@ -30,7 +30,11 @@ public class LevelData {
         assignSectorsToTiles();
     }
 
-    private void assignSectorsToTiles() {
+    public LevelData() {
+
+    }
+
+    public void assignSectorsToTiles() {
 
         Array<Rectangle> sectors = createSectorList();
         pieces = new Array<PuzzlePieceData>();
@@ -74,4 +78,47 @@ public class LevelData {
 
     }
 
+    public Array<PuzzlePieceData> getPieces() {
+        return pieces;
+    }
+
+    public int getRows() {
+        return rows;
+    }
+
+    public int getColums() {
+        return colums;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public float getMarginLeft() {
+        return marginLeft;
+    }
+
+    public float getMarginRight() {
+        return marginRight;
+    }
+
+    public float getMarginUp() {
+        return marginUp;
+    }
+
+    public float getMarginDown() {
+        return marginDown;
+    }
+
+    public float getTime() {
+        return time;
+    }
+
+    public Rectangle getPlayArea() {
+        return playArea;
+    }
+
+    public static String getLevelTilesFolderPrefix() {
+        return levelTilesFolderPrefix;
+    }
 }

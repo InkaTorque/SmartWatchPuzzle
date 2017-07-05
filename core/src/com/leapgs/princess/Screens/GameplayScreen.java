@@ -1,12 +1,13 @@
 package com.leapgs.princess.Screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.Timer;
 import com.leapgs.princess.Actors.PuzzlePieceActor;
 import com.leapgs.princess.Actors.StaticImageActor;
@@ -59,15 +60,13 @@ public class GameplayScreen extends BaseScreen {
 
         //LevelData(levelNumber,levelTime,rows,colums,playgroundMarginLeft,playgroundMarginRight,
         //          playgroundMarginUp,playGroundMarginDown)
-        switch (currentLevel)
-        {
-            case 1: currentLevelData = new LevelData(1,1000000000,2,3,50,50,100,50);break;
-            case 2: currentLevelData = new LevelData(2,30,2,3,50,50,100,50);break;
-            case 3: currentLevelData = new LevelData(3,30,2,3,50,50,100,50);break;
-            case 4: currentLevelData = new LevelData(4,30,2,3,50,50,100,50);break;
-            case 5: currentLevelData = new LevelData(5,30,2,3,50,50,100,50);break;
 
-        }
+        FileHandle file = Gdx.files.local("levels/level"+currentLevel+".json");
+        String levelString = file.readString();
+        Json json = new Json();
+
+        currentLevelData = json.fromJson(LevelData.class,levelString);
+        currentLevelData.assignSectorsToTiles();
 
     }
 
@@ -96,9 +95,9 @@ public class GameplayScreen extends BaseScreen {
     }
 
     private void setUpCurrentLevel() {
-        currentTime = currentLevelData.time;
-        currentPieces = currentLevelData.pieces;
-        createPlayAreaSquare(currentLevelData.playArea);
+        currentTime = currentLevelData.getTime();
+        currentPieces = currentLevelData.getPieces();
+        createSquarePlayArea(currentLevelData.getPlayArea());
         spawnRandomPiece();
     }
 
@@ -125,7 +124,7 @@ public class GameplayScreen extends BaseScreen {
 
     }
 
-    private void createPlayAreaSquare(Rectangle playArea) {
+    private void createSquarePlayArea(Rectangle playArea) {
         StaticImageActor playAreaTex = new StaticImageActor(game,"sprites/playArea.png",playArea.getX(),playArea.getY(),playArea.getWidth(),playArea.getHeight());
         stage.addActor(playAreaTex);
 

@@ -1,0 +1,16 @@
+{
+rows: 2
+colums: 3
+level: 2
+marginLeft: 50
+marginRight: 50
+marginUp: 100
+marginDown: 50
+time: 30
+playArea: {
+	x: 200
+	y: 175
+	width: 300
+	height: 250
+}
+}

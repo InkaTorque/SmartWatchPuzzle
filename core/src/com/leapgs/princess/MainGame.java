@@ -4,12 +4,15 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.utils.Json;
+import com.leapgs.princess.Models.LevelData;
 import com.leapgs.princess.Screens.DifficultyScreen;
 import com.leapgs.princess.Screens.GameplayScreen;
 import com.leapgs.princess.Screens.ResultsScreen;
@@ -42,6 +45,8 @@ public class MainGame extends Game {
 		window.y = 0;
 		skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
         scorePrefs = Gdx.app.getPreferences("Score");
+
+
 
 		goToWelcomeScreen();
 	}
